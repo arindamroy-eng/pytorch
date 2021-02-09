@@ -103,11 +103,8 @@ class TestLocallyConnectedOp(serial.SerializedTestCase):
            op_name=st.sampled_from(["LC", "LC1D"]),
            use_bias=st.booleans(),
            **hu.gcs)
-    @settings(deadline=1000)
+    @settings(deadline=5000)
     def test_lc_1d(self, N, C, size, M, kernel, op_name, use_bias, gc, dc):
-        if workspace.has_hip_support:
-            # Skip as test flaky on ROCM with deadline set to 1000
-            return
         if size < kernel:
             kernel = size
 
